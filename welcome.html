@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الترحيب</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            direction: rtl;
+            color: #fff;
+        }
+
+        .welcome-container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-text {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
+            }
+            to {
+                text-shadow: 0 0 20px #0072ff, 0 0 30px #0072ff, 0 0 40px #0072ff;
+            }
+        }
+
+        .welcome-text {
+            opacity: 0;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .visible {
+            animation: fadeIn 0.5s forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-text" id="welcomeText"></div>
+    </div>
+
+    <script>
+        const text = "أهلاً بالمهندس";
+        const welcomeText = document.getElementById('welcomeText');
+        
+        function showText() {
+            welcomeText.textContent = text;
+            welcomeText.classList.add('visible');
+        }
+
+        // إظهار النص كاملاً مع تأثير الظهور التدريجي
+        window.addEventListener('load', () => {
+            let currentText = "";
+            let index = 0;
+            
+            const interval = setInterval(() => {
+                if (index <= text.length) {
+                    currentText = text.substring(0, index);
+                    welcomeText.textContent = currentText;
+                    welcomeText.style.opacity = "1";
+                    index++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 150);
+        });
+    </script>
+</body>
+</html>

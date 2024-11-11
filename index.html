@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            direction: rtl;
+            color: #fff;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-10px);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #f1f1f1;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            outline: none;
+            text-align: center;
+        }
+
+        .input-group input:focus {
+            background: rgba(248, 0, 0, 0.227);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .gender-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .gender-group select {
+            width: 60%;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            background: rgba(0, 114, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+            box-shadow: inset 0 0 10px rgba(0, 114, 255, 0.3);
+            outline: none;
+            text-align: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gender-group select:hover {
+            background: rgba(0, 114, 255, 0.3);
+        }
+
+        .gender-group select:focus {
+            background: rgba(0, 114, 255, 0.5);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            transition: background 0.5s ease, transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 114, 255, 0.4);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 114, 255, 0.6);
+        }
+
+        .forgot-password {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .forgot-password a {
+            color: #00c6ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #fff;
+        }
+
+        .error-message {
+            color: #ff4444;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>تسجيل الدخول</h2>
+        <form id="loginForm" onsubmit="return validateForm(event)">
+            <div class="input-group">
+                <input type="text" placeholder="اسم المستخدم" name="username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="كلمة المرور" name="password" required>
+            </div>
+            <div class="gender-group">
+                <select name="gender" required>
+                    <option value="" disabled selected>اختر الجنس</option>
+                    <option value="ذكر">ذكر</option>
+                    <option value="أنثى">أنثى</option>
+                    <option value="مهندس">مهندس</option>
+                </select>
+            </div>
+            <button class="btn-login" type="submit">تسجيل الدخول</button>
+            <div class="error-message" id="errorMessage">يرجى ملء جميع الحقول</div>
+            <div class="forgot-password">
+                <a href="#">نسيت كلمة المرور؟</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const gender = document.querySelector('select[name="gender"]').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!username || !password || !gender) {
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            if (gender === 'مهندس') {
+                window.location.href = 'welcome.html';
+            } else {
+                alert('مرحباً بك!');
+                window.location.href = 'welcome.html';
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>
